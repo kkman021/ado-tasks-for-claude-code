@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Written by Claude Code when it loads the mod; never committed
+plugins/*/.claude-plugin/types/
+
+# Local Claude Code settings may hold an Azure DevOps PAT
+.claude/settings.local.json
+.claude/ado-members.json

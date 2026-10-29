@@ -1,0 +1,11 @@
+{
+  "name": "ado-tasks",
+  "version": "0.1.0",
+  "description": "Azure DevOps task panel and tools, configured per repository by .claude/ado.json",
+  "author": { "name": "kkman021" },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/kkman021/ado-tasks-for-claude-code",
+  "repository": "https://github.com/kkman021/ado-tasks-for-claude-code",
+  "keywords": ["azure-devops", "work-items", "pull-requests", "mod", "panel"],
+  "types": "./types/index.d.ts"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "ado-tasks-for-claude-code",
+  "description": "Azure DevOps work item and pull request panel, tools and skills for Claude Code",
+  "owner": { "name": "kkman021" },
+  "plugins": [
+    {
+      "name": "ado-tasks",
+      "source": "./plugins/ado-tasks",
+      "description": "Azure DevOps task panel and tools, configured per repository by .claude/ado.json"
+    }
+  ]
+}
