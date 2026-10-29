@@ -1,9 +1,8 @@
 import { expect, test } from 'claude-code/testing'
 import type { HttpInit, On } from 'claude-code'
+import { CWD, repoPath } from './repo'
 
 type Sent = { url: string; init?: HttpInit }
-
-const CWD = 'D:/repo'
 
 const MEMBERS_FILE = `${CWD}/.claude/ado-members.json`
 
@@ -17,7 +16,7 @@ function seatRepo(
   on('session.cwd', () => ({ value: CWD }))
   on('settings.read', () => ({ value: {} }))
   on('fs.read', (_$, e) => {
-    const path = e.path.replace(/\\/g, '/')
+    const path = repoPath(e.path)
     if (path === `${CWD}/.claude/ado.json` && files[path] === undefined) {
       return { value: JSON.stringify({ projectUrl: 'https://fabrikam.visualstudio.com/Bug-Tracker', patEnv: 'ADO_PAT_TEST' }) }
     }
@@ -27,7 +26,7 @@ function seatRepo(
     throw new Error(`unexpected read ${e.path}`)
   })
   on('fs.write', (_$, e) => {
-    files[e.path.replace(/\\/g, '/')] = e.text
+    files[repoPath(e.path)] = e.text
     return { value: undefined }
   })
   on('http.fetch', (_$, e) => {

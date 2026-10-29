@@ -1,6 +1,5 @@
 import { expect, test } from 'claude-code/testing'
-
-const CWD = 'D:/repo'
+import { CWD } from './repo'
 
 function answer(url: string): string {
   if (url.includes('/wiql')) return JSON.stringify({ workItems: [{ id: 7 }] })

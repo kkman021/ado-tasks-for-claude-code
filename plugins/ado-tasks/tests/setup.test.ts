@@ -1,8 +1,7 @@
 import { describe, expect, test } from 'claude-code/testing'
 
 import { defaultPatEnv, hasGitignoreEntry, parseProjectUrl, withGitignoreEntry, withLocalPat } from '../hooks/ado'
-
-const CWD = 'D:/repo'
+import { CWD, repoPath } from './repo'
 
 describe('setup helpers', () => {
   test('defaultPatEnv names the variable after the project', () => {
@@ -35,16 +34,15 @@ describe('setup helpers', () => {
 
 test('the pane walks a repository without ado.json through URL then PAT, then lists tasks', async ($, on) => {
   const files = new Map<string, string>([[`${CWD}/.gitignore`, 'node_modules/\n']])
-  const key = (path: string) => path.replace(/\\/g, '/')
-  on('session.cwd', () => ({ value: CWD }))
+    on('session.cwd', () => ({ value: CWD }))
   on('settings.read', () => ({ value: {} }))
   on('fs.read', (_$, e) => {
-    const text = files.get(key(e.path))
+    const text = files.get(repoPath(e.path))
     if (text === undefined) throw new Error(`missing ${e.path}`)
     return { value: text }
   })
   on('fs.write', (_$, e) => {
-    files.set(key(e.path), e.text)
+    files.set(repoPath(e.path), e.text)
     return { value: undefined }
   })
   on('fs.stat', () => ({ deny: 'no such path' }))

@@ -1,6 +1,6 @@
 import { expect, mock, test } from 'claude-code/testing'
+import { CWD } from './repo'
 
-const CWD = 'D:/repo'
 const CONFIG = JSON.stringify({ projectUrl: 'https://fabrikam.visualstudio.com/Demo', patEnv: 'ADO_PAT_TEST' })
 
 const PANE_PROPS = {

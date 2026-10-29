@@ -15,8 +15,8 @@ import {
   verdictOfSummary,
 } from '../hooks/ado'
 import { buildPullRequestLines } from '../hooks/tree'
+import { CWD } from './repo'
 
-const CWD = 'D:/repo'
 const REF = parseProjectUrl('https://fabrikam.visualstudio.com/Demo')
 const PR_URL = 'https://fabrikam.visualstudio.com/Demo/_git/Demo/pullrequest/22'
 

@@ -37,7 +37,7 @@ describe('parseRepoConfig confirm', () => {
   const base = { projectUrl: 'https://fabrikam.visualstudio.com/Demo', patEnv: 'ADO_PAT_DEMO' }
 
   test('asks before every write when the file has no confirm block', () => {
-    expect(parseRepoConfig(JSON.stringify(base), 'D:/repo').confirm).toEqual({
+    expect(parseRepoConfig(JSON.stringify(base), '/repo').confirm).toEqual({
       comment: true,
       assign: true,
       state: true,
@@ -48,15 +48,15 @@ describe('parseRepoConfig confirm', () => {
   })
 
   test('turns off only the actions set to false', () => {
-    const confirm = parseRepoConfig(JSON.stringify({ ...base, confirm: { comment: false, assign: false } }), 'D:/repo').confirm
+    const confirm = parseRepoConfig(JSON.stringify({ ...base, confirm: { comment: false, assign: false } }), '/repo').confirm
     expect(confirm).toEqual({ comment: false, assign: false, state: true, create: true, update: true, pullRequest: true })
   })
 
   test('refuses a value that is not a boolean, or a block that is not an object', () => {
-    expect(() => parseRepoConfig(JSON.stringify({ ...base, confirm: { state: 'no' } }), 'D:/repo')).toThrow(
+    expect(() => parseRepoConfig(JSON.stringify({ ...base, confirm: { state: 'no' } }), '/repo')).toThrow(
       /confirm\.state must be true or false/,
     )
-    expect(() => parseRepoConfig(JSON.stringify({ ...base, confirm: false }), 'D:/repo')).toThrow(/confirm must be an object/)
+    expect(() => parseRepoConfig(JSON.stringify({ ...base, confirm: false }), '/repo')).toThrow(/confirm must be an object/)
   })
 
   test('repoConfigText keeps the confirm block of the file it replaces', () => {

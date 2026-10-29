@@ -51,6 +51,8 @@ CI runs the same commands.
 - Add a test for every behavior change.
 - Test data uses the fictional organizations `contoso` and `fabrikam` and `@corp.com` addresses.
   Never commit real organization names, project names, people or tokens.
+- Tests run on Windows and Linux. Take the repository root from `tests/repo.ts` (`CWD`) and key
+  paths an fs hook receives with `repoPath`; never write a drive-letter path such as `D:/repo`.
 - Bump `version` in `plugins/ado-tasks/.claude-plugin/plugin.json` and add a `CHANGELOG.md` entry
   for each release.
 
