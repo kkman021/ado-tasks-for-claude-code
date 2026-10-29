@@ -184,3 +184,38 @@ test('the pane lists tasks on Refresh and opens one in place on a click', async 
     await ui.unmount()
   }
 })
+
+test('the detail view keeps the full work item URL as a Link in a pane narrower than the URL', async ($, on) => {
+  on('session.cwd', () => ({ value: CWD }))
+  on('settings.read', () => ({ value: { env: { ADO_PAT_TEST: 'secret' } } }))
+  on('fs.read', () => ({
+    value: JSON.stringify({ projectUrl: 'https://fabrikam.visualstudio.com/Bug-Tracker', patEnv: 'ADO_PAT_TEST' }),
+  }))
+  on('http.fetch', (_$, e) => ({ value: { status: 200, ok: true, headers: {}, text: answer(e.url) } }))
+
+  for (const surface of ['terminal', 'desktop'] as const) {
+    const ui = await $.ui.mount({
+      plugin: 'ado-tasks',
+      surface,
+      component: 'Pane',
+      requestId: 'ado-tasks',
+      props: {
+        title: 'Azure DevOps Tasks',
+        isFocused: true,
+        bodyColumns: 30,
+        placement: 'dock',
+        scroll: { offset: 0, bodyRows: 20 },
+        view: {},
+      },
+    })
+    await ui.press({ key: 'refresh' })
+    await ui.press({ key: 'open-7' })
+
+    const link = await ui.find({ type: 'Link' })
+    expect(link).toBeDefined()
+    expect(link?.props.href).toBe('https://fabrikam.visualstudio.com/Bug-Tracker/_workitems/edit/7')
+
+    await ui.press({ key: 'back' })
+    await ui.unmount()
+  }
+})

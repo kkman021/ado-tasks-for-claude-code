@@ -1,6 +1,6 @@
 {
   "name": "ado-tasks",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Azure DevOps task panel and tools, configured per repository by .claude/ado.json",
   "author": { "name": "kkman021" },
   "license": "Apache-2.0",

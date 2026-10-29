@@ -1454,7 +1454,7 @@ export const register: Register = on => {
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => {
     const elements = $.ui.resolve(e)
-    const { Box, Text, Button } = elements
+    const { Box, Text, Button, Link } = elements
     const Input = 'Input' in elements ? elements.Input : undefined
     const state = await readPanel($)
     // `/clear` moves the process to a new session id, whose `$.state` starts over.
@@ -1624,7 +1624,7 @@ export const register: Register = on => {
                 {detail.tags ? ` · ${detail.tags}` : ''}
               </Text>
               <Text dimColor wrap="truncate-end">
-                {detail.url}
+                <Link href={detail.url} />
               </Text>
               {sections
                 .filter(([, body]) => body !== '')
